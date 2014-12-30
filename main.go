@@ -27,7 +27,7 @@ const Usage = `Send a mail when services are unavailable
 
   Options:
     --es-host host   	ElasticSearch host (default to localhost)
-    --es-search json   	JSON file used as ElasticSearch request body (default to request query 'response:5*')
+    --es-search json   	JSON file used as request body (default to 'response:5*')
     --from mail   	mail sender (default to healthy@$HOST)
     --to mail   	mail recipient (default to $USER@$HOST)
     --smtp-host host   	SMTP host (default to localhost)
