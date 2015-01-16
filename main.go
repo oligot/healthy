@@ -126,12 +126,14 @@ func search(options Options) {
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
-		log.Fatalf("request error: %s", http.StatusText(res.StatusCode))
+		log.Printf("request error: %s", http.StatusText(res.StatusCode))
+		return
 	}
 
 	var search Search
 	if err := json.NewDecoder(res.Body).Decode(&search); err != nil {
-		log.Fatalf("failed to decode response: %s", err)
+		log.Printf("failed to decode response: %s", err)
+		return
 	}
 	log.Printf("found %v hits", search.Hits.Total)
 	if search.Hits.Total > 0 {
@@ -153,7 +155,7 @@ func send(options Options, total int64, messages string) {
 ` + messages)
 	err := smtp.SendMail(options.smtpHost+":25", nil, options.from, to, msg)
 	if err != nil {
-		log.Fatalf("failed to send mail: %s", err)
+		log.Printf("failed to send mail: %s", err)
 	}
 }
 
